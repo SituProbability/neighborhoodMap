@@ -83,6 +83,12 @@ a, a:hover, a:focus {
 	min-width: 100vw;
 	min-height: 100vh;
 }
+
+#pano {
+	min-width: 200px;
+	min-height: 200px;
+}
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
