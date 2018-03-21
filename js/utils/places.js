@@ -1,6 +1,12 @@
 
 var map;
 
+var largeInfowindow;
+
+var defaultIcon;
+var highlightedIcon;
+
+
 // Create a new blank array for all the listing markers.
 var markers = [];
 
@@ -17,14 +23,14 @@ function loadMarkers(locations) {
 	
 	var bounds = new google.maps.LatLngBounds();
 	
+	largeInfowindow = new google.maps.InfoWindow();
+	
 	// Style the markers a bit. This will be our listing marker icon.
-	var defaultIcon = makeMarkerIcon('0091ff');
+	defaultIcon = makeMarkerIcon('0091ff');
 	
 	// Create a "highlighted location" marker color for when the user
 	// mouses over the marker.
-	var highlightedIcon = makeMarkerIcon('FFFF24');
-	
-	var largeInfowindow = new google.maps.InfoWindow();
+	highlightedIcon = makeMarkerIcon('FFFF24');
 	
 	for (var i = 0; i < locations.length; i++) {
 		// Get the position from the location array.
@@ -101,6 +107,7 @@ function populateInfoWindow(marker, infowindow) {
 		infowindow.marker = marker;
 		// Make sure the marker property is cleared if the infowindow is closed.
 		infowindow.addListener('closeclick', function() {
+			marker.setIcon(defaultIcon);
 			infowindow.marker = null;
 		});
 		

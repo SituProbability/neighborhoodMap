@@ -13,7 +13,7 @@ var initialLocations = [
 					{title: "Bert's Mega Mall", location: {lat: 34.10089980000001, lng: -117.9093383}}
 				];
 
-var place = function(data) {
+var Place = function(data) {
 
 	this.name = ko.observable(data.title);
 	this.isFilterOut = ko.computed(function() {
@@ -32,16 +32,27 @@ var place = function(data) {
 var ViewModel = function() {
 	self = this;
 		
-	this.placeList = ko.observableArray([]);
+	self.placeList = ko.observableArray([]);
 	initialLocations.forEach(function(item) {
-		self.placeList.push(new place(item));
+		self.placeList.push(new Place(item));
 	});
 	
 	
-	this.matchMarkers = ko.computed(function() {
+	self.matchMarkers = ko.computed(function() {
 			hideFilterOutMarkers(search());
-	}, this);
+	}, self);
 	
+	self.currentPlace = ko.observable(self.placeList()[0]);
+	self.setPlace = function(clickedPlace) {
+		self.currentPlace(clickedPlace);
+	}
+	self.populateInfowindow = function() {
+		for (var i = 0; i < markers.length; i++) {
+			if (markers[i].title == self.currentPlace().name()) {
+				populateInfoWindow(markers[i], largeInfowindow);
+			}
+		}
+	}	
 	
     initMap();
     loadMarkers(initialLocations);
