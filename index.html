@@ -43,8 +43,8 @@
 			</div>
 					
 			<ul class="list-unstyled" id="myList" data-bind="foreach: placeList">
-				<li data-bind="visible: isFilterOut, click: $parent.populateInfowindow">
-					<a data-bind="text: name, click: $parent.setPlace" href="#"></a>
+				<li data-bind="visible: isFilterOut, click: $parent.populateInfowindow, event: {mouseover: $parent.coloredMarker, mouseout: $parent.uncoloredMarker }">
+					<a data-bind="text: name, click: $parent.setPlace, event: {mouseover: $parent.setPlace}" href="#"></a>
 				</li>
 				
 			</ul>

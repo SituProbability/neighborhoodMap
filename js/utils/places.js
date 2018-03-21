@@ -5,7 +5,7 @@ var largeInfowindow;
 
 var defaultIcon;
 var highlightedIcon;
-
+var bouncer;
 
 // Create a new blank array for all the listing markers.
 var markers = [];
@@ -54,6 +54,14 @@ function loadMarkers(locations) {
 				
 		// Create an onclick event to open an infowindow at each marker.
 		marker.addListener('click', function() {
+			// Stop the bouncing marker, if there is one 
+			if ( bouncer && bouncer.getAnimation() !== null ) {
+				bouncer.setAnimation(null);
+				bouncer = null;
+			}
+
+			this.setAnimation(google.maps.Animation.BOUNCE);
+			bouncer = this;
 			populateInfoWindow(this, largeInfowindow);
 		});
 		
@@ -100,14 +108,15 @@ function makeMarkerIcon(markerColor) {
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
 function populateInfoWindow(marker, infowindow) {
+		
 	// Check to make sure the infowindow is not already opened on this marker.
-	if (infowindow.marker != marker) {
+	if (infowindow.marker != marker) {		
 		// Clear the infowindow content to give the streetview time to load.
 		infowindow.setContent('');
 		infowindow.marker = marker;
 		// Make sure the marker property is cleared if the infowindow is closed.
 		infowindow.addListener('closeclick', function() {
-			marker.setIcon(defaultIcon);
+			marker.setAnimation(null);
 			infowindow.marker = null;
 		});
 		

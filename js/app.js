@@ -27,6 +27,7 @@ var Place = function(data) {
 		return isFilterOut;
 
 	}, this);
+
 }
 				
 var ViewModel = function() {
@@ -45,14 +46,35 @@ var ViewModel = function() {
 	self.currentPlace = ko.observable(self.placeList()[0]);
 	self.setPlace = function(clickedPlace) {
 		self.currentPlace(clickedPlace);
+		console.log(self.currentPlace());
 	}
 	self.populateInfowindow = function() {
 		for (var i = 0; i < markers.length; i++) {
+			markers[i].setAnimation(null);
 			if (markers[i].title == self.currentPlace().name()) {
+				markers[i].setAnimation(google.maps.Animation.BOUNCE);
 				populateInfoWindow(markers[i], largeInfowindow);
 			}
 		}
-	}	
+	}
+	
+	self.coloredMarker = function() {
+		for (var i = 0; i < markers.length; i++) {
+			if (markers[i].title == self.currentPlace().name()) {
+				console.log(markers[i]);
+				markers[i].setIcon(highlightedIcon);
+			}
+		}
+	}
+	
+	self.uncoloredMarker = function() {
+		for (var i = 0; i < markers.length; i++) {
+			if (markers[i].title == self.currentPlace().name()) {
+				console.log(markers[i]);
+				markers[i].setIcon(defaultIcon);
+			}
+		}
+	}
 	
     initMap();
     loadMarkers(initialLocations);
