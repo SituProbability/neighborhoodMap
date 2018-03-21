@@ -20,7 +20,6 @@ a, a:hover, a:focus {
     border: none;
     border-radius: 0;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-	margin-bottom:0;
 }
 
 .navbar-btn {
@@ -36,6 +35,7 @@ a, a:hover, a:focus {
 .wrapper {
     display: flex;
     align-items: stretch;
+	margin-top: 41px;
 }
 
 #sidebar {
