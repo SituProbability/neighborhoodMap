@@ -13,6 +13,7 @@ function initMap() {
 }
 
 function loadMarkers(locations) {
+	var bounds = new google.maps.LatLngBounds();
 	for (var i = 0; i < locations.length; i++) {
 		// Get the position from the location array.
 		var position = locations[i].location;
@@ -27,6 +28,10 @@ function loadMarkers(locations) {
 		});
 		// Push the marker to our array of markers.
 		markers.push(marker);
+		
+		bounds.extend(marker.position);
+		
+		map.fitBounds(bounds);
 				
 		// Create an onclick event to open an infowindow at each marker.
 		marker.addListener('click', function() {
@@ -35,3 +40,14 @@ function loadMarkers(locations) {
 	
 	}
 }
+
+// This function will hide the filter out markers.
+function hideFilterOutMarkers(string) {
+        for (var i = 0; i < markers.length; i++) {
+			if (markers[i].title.toLowerCase().indexOf(string.toLowerCase()) < 0) {
+				markers[i].setMap(null);
+			} else {
+				markers[i].setMap(map);
+			}
+        }
+    }

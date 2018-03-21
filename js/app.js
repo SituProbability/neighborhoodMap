@@ -8,13 +8,25 @@ var initialLocations = [
 					{title: "Shakey's Pizza Parlor", location: {lat: 34.0692741, lng: -118.0293583}},
 					{title: "Pho Kim", location: {lat: 34.0806082, lng: -118.0188375}},
 					{title: "Alberto's Mexican Food", location: {lat: 34.075125, lng: -118.0225922}},
-					{title: "El Salvadoreño Restaurant", location: {lat: 34.065706, lng: -118.029991}}
+					{title: "El Salvadoreño Restaurant", location: {lat: 34.065706, lng: -118.029991}},
+					{title: "Longo Toyota", location: {lat: 34.0694683, lng: -118.0217854}},
+					{title: "Bert's Mega Mall", location: {lat: 34.10089980000001, lng: -117.9093383}}
 				];
 
 var place = function(data) {
 
 	this.name = ko.observable(data.title);
-	
+	this.isFilterOut = ko.computed(function() {
+		var isFilterOut;
+		if (this.name().toLowerCase().indexOf(search().toLowerCase()) > -1) {
+			isFilterOut = true;
+		} else {
+			return isFilterOut = false;
+		}
+		
+		return isFilterOut;
+
+	}, this);
 }
 				
 var ViewModel = function() {
@@ -26,11 +38,14 @@ var ViewModel = function() {
 	});
 	
 	
-	
+	this.matchMarkers = ko.computed(function() {
+			hideFilterOutMarkers(search());
+	}, this);
 	
 	
     initMap();
-    loadMarkers(initialLocations);	
+    loadMarkers(initialLocations);
+	
 }
 
 function run() {
