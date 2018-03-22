@@ -79,14 +79,19 @@ var ViewModel = function() {
 			}
 		}
 	}
+	
+	self.placeToSearch = function() {
+		if (placeMarkers != []) {
+			placeMarkers = [];
+		}
+		textSearchPlaces(search());
+	}
 }
 
-function run() {
-		
+function run() {	
     initMap();
-    loadMarkers(initialLocations);
-	
 	viewModel = new ViewModel()
+    loadMarkers(initialLocations);
 	ko.applyBindings(new ViewModel());
 	
 }
