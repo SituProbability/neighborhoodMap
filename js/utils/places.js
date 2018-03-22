@@ -25,7 +25,7 @@ function loadMarkers(locations) {
 	var bounds = new google.maps.LatLngBounds();
 	
 	bouncer = new google.maps.Marker({
-		title: title,
+		title: ""
 	});
 	largeInfowindow = new google.maps.InfoWindow();
 	
@@ -123,6 +123,9 @@ function populateInfoWindow(marker, infowindow) {
 		infowindow.addListener('closeclick', function() {
 			marker.setAnimation(null);
 			infowindow.marker = null;
+			bouncer = new google.maps.Marker({
+				title: ""
+			});
 		});
 		
 		var streetViewService = new google.maps.StreetViewService();

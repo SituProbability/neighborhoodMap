@@ -43,12 +43,7 @@ var ViewModel = function() {
 	self.matchMarkers = ko.computed(function() {
 			hideFilterOutMarkers(search());
 	}, self);
-	
-//	self.currentPlace = ko.observable(self.placeList()[0]);
-//	self.setPlace = function(clickedPlace) {
-//		self.currentPlace(clickedPlace);
-//	}
-	
+		
 	self.populateInfowindow = function(clickedPlace) {
 		// check if the item is clicked again!
 		if(clickedPlace.name() != bouncer.title){
@@ -65,10 +60,7 @@ var ViewModel = function() {
 					populateInfoWindow(markers[i], largeInfowindow);
 				}
 			}
-		
-		
 		}
-		
 		
 	}
 	
@@ -87,13 +79,13 @@ var ViewModel = function() {
 			}
 		}
 	}
-	
-    initMap();
-    loadMarkers(initialLocations);
-	
 }
 
 function run() {
+		
+    initMap();
+    loadMarkers(initialLocations);
+	
 	viewModel = new ViewModel()
 	ko.applyBindings(new ViewModel());
 	
