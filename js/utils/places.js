@@ -5,6 +5,7 @@ var largeInfowindow;
 
 var defaultIcon;
 var highlightedIcon;
+
 var bouncer;
 
 // Create a new blank array for all the listing markers.
@@ -22,7 +23,7 @@ function initMap() {
 function loadMarkers(locations) {
 	
 	var bounds = new google.maps.LatLngBounds();
-	
+
 	largeInfowindow = new google.maps.InfoWindow();
 	
 	// Style the markers a bit. This will be our listing marker icon.
@@ -54,15 +55,15 @@ function loadMarkers(locations) {
 				
 		// Create an onclick event to open an infowindow at each marker.
 		marker.addListener('click', function() {
-			// Stop the bouncing marker, if there is one 
-			if ( bouncer && bouncer.getAnimation() !== null ) {
-				bouncer.setAnimation(null);
-				bouncer = null;
-			}
+				// Stop the bouncing marker, if there is one 
+				if ( bouncer && bouncer.getAnimation() !== null ) {
+					bouncer.setAnimation(null);
+				}
 
-			this.setAnimation(google.maps.Animation.BOUNCE);
-			bouncer = this;
-			populateInfoWindow(this, largeInfowindow);
+				this.setAnimation(google.maps.Animation.BOUNCE);
+				bouncer = this;
+				populateInfoWindow(this, largeInfowindow);
+
 		});
 		
 		// Two event listeners - one for mouseover, one for mouseout,

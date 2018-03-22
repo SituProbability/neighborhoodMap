@@ -1,5 +1,6 @@
 var search = ko.observable("")
 
+
 // Default points of interest
 var initialLocations = [
 					{title: "Chuck E. Cheese's", location: {lat: 34.087622, lng : -118.0166958}},
@@ -43,34 +44,38 @@ var ViewModel = function() {
 			hideFilterOutMarkers(search());
 	}, self);
 	
-	self.currentPlace = ko.observable(self.placeList()[0]);
-	self.setPlace = function(clickedPlace) {
-		self.currentPlace(clickedPlace);
-		console.log(self.currentPlace());
-	}
-	self.populateInfowindow = function() {
-		for (var i = 0; i < markers.length; i++) {
-			markers[i].setAnimation(null);
-			if (markers[i].title == self.currentPlace().name()) {
-				markers[i].setAnimation(google.maps.Animation.BOUNCE);
-				populateInfoWindow(markers[i], largeInfowindow);
+//	self.currentPlace = ko.observable(self.placeList()[0]);
+//	self.setPlace = function(clickedPlace) {
+//		self.currentPlace(clickedPlace);
+//	}
+	
+	self.populateInfowindow = function(clickedPlace) {
+			// Stop the bouncing marker, if there is one 
+			if ( bouncer && bouncer.getAnimation() !== null ) {
+				bouncer.setAnimation(null);
 			}
-		}
+			
+			for (var i = 0; i < markers.length; i++) {
+		
+				if (markers[i].title == clickedPlace.name()) {
+					markers[i].setAnimation(google.maps.Animation.BOUNCE);
+					bouncer = markers[i];
+					populateInfoWindow(markers[i], largeInfowindow);
+				}
+			}
 	}
 	
-	self.coloredMarker = function() {
+	self.coloredMarker = function(mouseOverPlace) {
 		for (var i = 0; i < markers.length; i++) {
-			if (markers[i].title == self.currentPlace().name()) {
-				console.log(markers[i]);
+			if (markers[i].title == mouseOverPlace.name()) {
 				markers[i].setIcon(highlightedIcon);
 			}
 		}
 	}
 	
-	self.uncoloredMarker = function() {
+	self.uncoloredMarker = function(mouseOverPlace) {
 		for (var i = 0; i < markers.length; i++) {
-			if (markers[i].title == self.currentPlace().name()) {
-				console.log(markers[i]);
+			if (markers[i].title == mouseOverPlace.name()) {
 				markers[i].setIcon(defaultIcon);
 			}
 		}
