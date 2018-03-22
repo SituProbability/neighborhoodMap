@@ -50,6 +50,8 @@ var ViewModel = function() {
 //	}
 	
 	self.populateInfowindow = function(clickedPlace) {
+		// check if the item is clicked again!
+		if(clickedPlace.name() != bouncer.title){
 			// Stop the bouncing marker, if there is one 
 			if ( bouncer && bouncer.getAnimation() !== null ) {
 				bouncer.setAnimation(null);
@@ -63,6 +65,11 @@ var ViewModel = function() {
 					populateInfoWindow(markers[i], largeInfowindow);
 				}
 			}
+		
+		
+		}
+		
+		
 	}
 	
 	self.coloredMarker = function(mouseOverPlace) {

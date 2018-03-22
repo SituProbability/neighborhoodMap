@@ -23,7 +23,10 @@ function initMap() {
 function loadMarkers(locations) {
 	
 	var bounds = new google.maps.LatLngBounds();
-
+	
+	bouncer = new google.maps.Marker({
+		title: title,
+	});
 	largeInfowindow = new google.maps.InfoWindow();
 	
 	// Style the markers a bit. This will be our listing marker icon.
@@ -55,6 +58,7 @@ function loadMarkers(locations) {
 				
 		// Create an onclick event to open an infowindow at each marker.
 		marker.addListener('click', function() {
+			if(this !== bouncer) {
 				// Stop the bouncing marker, if there is one 
 				if ( bouncer && bouncer.getAnimation() !== null ) {
 					bouncer.setAnimation(null);
@@ -63,7 +67,7 @@ function loadMarkers(locations) {
 				this.setAnimation(google.maps.Animation.BOUNCE);
 				bouncer = this;
 				populateInfoWindow(this, largeInfowindow);
-
+			}
 		});
 		
 		// Two event listeners - one for mouseover, one for mouseout,
