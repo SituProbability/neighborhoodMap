@@ -30,7 +30,14 @@ var Place = function(data) {
 	}, this);
 
 }
-				
+
+// A class that represents a foursquare photo
+function FoursquarePhoto(url, title) {
+    var self = this;
+    self.src = ko.observable(url);
+    self.alt = ko.observable(title);
+	self.content = ko.observable(title);
+}		
 var ViewModel = function() {
 	self = this;
 		
@@ -79,14 +86,20 @@ var ViewModel = function() {
 			}
 		}
 	}
+	
+	self.getFoursquarePhotos = function(clickPlace) {
+		
+	}
+	
+	self.fourSquarePhotos = ko.observableArray([]);
+
 }
 
+var viewModel;
 function run() {
-		
-    initMap();
+	initMap();
     loadMarkers(initialLocations);
-	
-	viewModel = new ViewModel()
-	ko.applyBindings(new ViewModel());
-	
+	viewModel = new ViewModel();
+	ko.applyBindings(viewModel);
+	loadFoursquarePhotos("Chuck E. Cheese's", "34.087622,-118.0166958", viewModel.fourSquarePhotos);
 }

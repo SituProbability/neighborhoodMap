@@ -15,8 +15,7 @@ var markers = [];
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 34.087115, lng: -118.015921},
-		zoom: 13,
-		mapTypeControl: false
+		zoom: 15
 	});
 }
 

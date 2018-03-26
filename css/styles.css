@@ -80,8 +80,8 @@ a, a:hover, a:focus {
 ----------------------------------------------------- */
 
 #map {
-	min-width: 100vw;
-	min-height: 100vh;
+	min-width: calc(100% - 250px);
+	min-height: 60vh;
 }
 
 #pano {
@@ -92,6 +92,7 @@ a, a:hover, a:focus {
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
+
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
@@ -102,4 +103,7 @@ a, a:hover, a:focus {
     #sidebarCollapse span {
         display: none;
     }
+	.wrapper {
+	margin-top: 118px;
+}
 }
