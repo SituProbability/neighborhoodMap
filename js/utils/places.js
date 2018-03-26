@@ -66,6 +66,16 @@ function loadMarkers(locations) {
 				this.setAnimation(google.maps.Animation.BOUNCE);
 				bouncer = this;
 				populateInfoWindow(this, largeInfowindow);
+				
+				// Load Foursquare photos for this markers location 
+				for (var i = 0; i < viewModel.placeList().length; i++) {
+					if (bouncer.title == viewModel.placeList()[i].name()) {
+						console.log(bouncer.title);
+						console.log(viewModel.placeList()[i].name());
+						viewModel.currentPlace(viewModel.placeList()[i]);
+						break;
+					}
+				}
 			}
 		});
 		

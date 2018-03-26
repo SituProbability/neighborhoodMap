@@ -28,6 +28,10 @@ a, a:hover, a:focus {
     border: none;
 }
 
+h2 {
+	margin-left: 20px;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -35,7 +39,7 @@ a, a:hover, a:focus {
 .wrapper {
     display: flex;
     align-items: stretch;
-	margin-top: 41px;
+	margin-top: 50px;
 }
 
 #sidebar {
@@ -44,6 +48,8 @@ a, a:hover, a:focus {
     background: #7386D5;
     color: #fff;
     transition: all 0.3s;
+	overflow: auto;
+	max-height: 70vh;
 }
 
 #sidebar.active {
@@ -81,7 +87,7 @@ a, a:hover, a:focus {
 
 #map {
 	min-width: calc(100% - 250px);
-	min-height: 60vh;
+	min-height: 70vh;
 }
 
 #pano {
@@ -103,7 +109,10 @@ a, a:hover, a:focus {
     #sidebarCollapse span {
         display: none;
     }
+	#map {
+		min-width: 100%;
+	}
 	.wrapper {
-	margin-top: 118px;
-}
+		margin-top: 118px;
+	}
 }

@@ -14,9 +14,11 @@ var initialLocations = [
 					{title: "Bert's Mega Mall", location: {lat: 34.10089980000001, lng: -117.9093383}}
 				];
 
+				
 var Place = function(data) {
 
 	this.name = ko.observable(data.title);
+	this.position = data.location;
 	this.isFilterOut = ko.computed(function() {
 		var isFilterOut;
 		if (this.name().toLowerCase().indexOf(search().toLowerCase()) > -1) {
@@ -32,12 +34,13 @@ var Place = function(data) {
 }
 
 // A class that represents a foursquare photo
-function FoursquarePhoto(url, title) {
+var FoursquarePhoto = function (url, title) {
     var self = this;
     self.src = ko.observable(url);
     self.alt = ko.observable(title);
-	self.content = ko.observable(title);
-}		
+}
+
+		
 var ViewModel = function() {
 	self = this;
 		
@@ -87,13 +90,21 @@ var ViewModel = function() {
 		}
 	}
 	
-	self.getFoursquarePhotos = function(clickPlace) {
-		
-	}
-	
 	self.fourSquarePhotos = ko.observableArray([]);
-
+	
+	self.currentPlace = ko.observable(self.placeList()[0]);
+	
+	this.setPlace = function(clickedPlace){
+		self.currentPlace(clickedPlace);		
+	};
+	
+	self.getFoursquareHeader = ko.computed(function() {
+		self.title = ko.observable(self.currentPlace().name());
+		self.ll = ko.observable(self.currentPlace().position.lat + "," + self.currentPlace().position.lng);
+		loadFoursquarePhotos(self.title(), self.ll(), self.fourSquarePhotos);
+	}, self);
 }
+
 
 var viewModel;
 function run() {
@@ -101,5 +112,4 @@ function run() {
     loadMarkers(initialLocations);
 	viewModel = new ViewModel();
 	ko.applyBindings(viewModel);
-	loadFoursquarePhotos("Chuck E. Cheese's", "34.087622,-118.0166958", viewModel.fourSquarePhotos);
 }

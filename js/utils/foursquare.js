@@ -4,7 +4,7 @@ ll=%LL%&intent=match&name=%TITLE%\
 &client_id=Q4QXZWZPJA3A2FLXTA2EXRGI1FWJCGV0BEXJ3VZF2PH3OQO5\
 &client_secret=BKALZ4MOIMHNK5ST2EVLTBUJDYJJ1IL14R1SEN3EM0UPSLLN&v=20180324";
 
-var PHOTOS_URL = "https://api.foursquare.com/v2/venues/%ID%/photos?\
+var PHOTOS_URL = "https://api.foursquare.com/v2/venues/%ID%/photos?limit=10\
 &client_id=Q4QXZWZPJA3A2FLXTA2EXRGI1FWJCGV0BEXJ3VZF2PH3OQO5\
 &client_secret=BKALZ4MOIMHNK5ST2EVLTBUJDYJJ1IL14R1SEN3EM0UPSLLN&v=20180324";
 
@@ -19,6 +19,7 @@ function loadFoursquarePhotos(title, ll, fourSquarePhotos) {
 
 		var PhotosUrl = PHOTOS_URL.replace("%ID%", venue_id);
 		$.getJSON(PhotosUrl, function(data) {
+			fourSquarePhotos([]);
 			var items = data.response.photos.items;
 			for (var i = 0; i < items.length; i++) {
 				var url =items[i].prefix + "300x300" + items[i].suffix;			
