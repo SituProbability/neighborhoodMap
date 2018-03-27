@@ -104,17 +104,32 @@ var ViewModel = function() {
 		loadFoursquarePhotos(self.title(), self.ll(), self.fourSquarePhotos, self.fourSquareError);
 	}, self);
 	
-	self.toggleMapWidth = function() {
-		$('#sidebar').toggleClass('active');
-		
-		var value = $("#sidebar").css("margin-left");
-		if ( value == "-250px" ) {
-			$("#map").css("min-width", "calc(-250px + 100%)");
+	self.displaySidebar = ko.observable(false);
+	self.setDisplaySidebar = function() {
+		if(self.displaySidebar() == false) {
+			self.displaySidebar(true);
+		} else {
+			self.displaySidebar(false);
 		}
-		if ( value == "0px" ) {	
-			$("#map").css("min-width", "100%");
+	};
+
+	// Knockout binding that makes elements shown/hidden via jQuery's fadeIn()/fadeOut() methods
+	ko.bindingHandlers.fadeVisible = {
+		init: function(element, valueAccessor) {
+			// Initially set the element to be instantly visible/hidden depending on the value
+			var value = valueAccessor();
+			$(element).toggle(ko.utils.unwrapObservable(value)); 
+		},
+		update: function(element, valueAccessor) {
+			// Whenever the value subsequently changes, slowly fade the element in or out
+			var value = valueAccessor();
+			ko.utils.unwrapObservable(value) ? $(element).fadeIn() : $(element).fadeOut();
 		}
-	}
+	};
+	
+	self.setWidth = ko.pureComputed(function(){
+		return self.displaySidebar() ? "set-width" : "set-full-width"
+	}, self);
 }
 
 

@@ -26,7 +26,7 @@
 			</form>
 			
 			<div class="navbar-header navbar-right">			
-				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" data-bind="click: toggleMapWidth">
+				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" data-bind="click: setDisplaySidebar">
 					<i class="glyphicon glyphicon-align-left"></i>
 					<span>Toggle Sidebar</span>
 				</button>
@@ -39,7 +39,7 @@
     
 	<div class="container-fluid">
 		<div class="row wrapper">
-			<nav id="sidebar">
+			<nav id="sidebar" data-bind='fadeVisible: displaySidebar'>
 				<div class="sidebar-header">
 					<h3>Favorite Locations</h3>
 				</div>		
@@ -50,7 +50,7 @@
 					
 				</ul>
 			</nav>
-			<div id="map"></div>
+			<div id="map" data-bind="css: setWidth"></div>
 		</div>
 		
 		<div class="row" data-bind="with:currentPlace">
