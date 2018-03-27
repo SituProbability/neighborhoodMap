@@ -50,16 +50,12 @@
 					
 				</ul>
 			</nav>
-			<div id="map">
-				<p>Ooops!</p>
-				<p>Looks like the satellite is down!</p>
-				<p>Refresh or try later!</p>
-			</div>
+			<div id="map"></div>
 		</div>
 		
 		<div class="row" data-bind="with:currentPlace">
 			<p id="photo-title"><img class="logo" width ="40" height="40" src="https://ss1.4sqi.net/img/metaIcons/touch-icon-72-cf2d6cd44afc49e9889ad54e33e69f31.png">OURSQUARE PHOTOS: <span data-bind="text: name"></span></p>
-			<p data-bind="text: $parent.fourSquareError"></p>
+			<p id="error-message" data-bind="text: $parent.fourSquareError"></p>
 		</div>
 		
 		<div class="row" data-bind="foreach: fourSquarePhotos" >
@@ -90,7 +86,7 @@
 	<script src="js/utils/foursquare.js"></script>
     <script src="js/app.js"></script>
 	<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuyUkgH8UMjokfvT3H5lizeUzmcv8H2Kc&libraries=places&v=3&callback=run">
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuyUkgH8UMjokfvT3H5lizeUzmcv8H2Kc&libraries=places&v=3&callback=run" onerror="googleMapsError()">
 	</script>
 </body>
 </html>

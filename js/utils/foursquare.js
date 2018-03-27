@@ -27,8 +27,10 @@ function loadFoursquarePhotos(title, ll, fourSquarePhotos, fourSquareError) {
 				var url =items[i].prefix + "300x300" + items[i].suffix;			
 				fourSquarePhotos.push(new FoursquarePhoto(url, title));
 			}
+		}).fail(function() {
+			fourSquareError("Oops! We didn't find any photos for this place. Refresh or try later!");
 		});
 	}).fail(function() {
-		fourSquareError("Oops! We didn't find any photos for this place.");
+		fourSquareError("Oops! We didn't find any venue matched this place. Refresh or try later!");
 	});
 }

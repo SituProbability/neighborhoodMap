@@ -19,6 +19,11 @@ function initMap() {
 	});
 }
 
+// Function is called if the Google Maps script fails to load,
+function googleMapsError() {
+	alert("Ooops!\nLooks like the satellite is down!\nRefresh or try later!");
+}
+
 // Load markers
 function loadMarkers(locations) {
 	
