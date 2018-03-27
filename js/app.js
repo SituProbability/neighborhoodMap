@@ -1,5 +1,5 @@
-var search = ko.observable("")
 
+var search = ko.observable("")
 
 // Default points of interest
 var initialLocations = [
@@ -14,9 +14,8 @@ var initialLocations = [
 					{title: "Bert's Mega Mall", location: {lat: 34.10089980000001, lng: -117.9093383}}
 				];
 
-				
+// A class that represents a place.
 var Place = function(data) {
-
 	this.name = ko.observable(data.title);
 	this.position = data.location;
 	this.isFilterOut = ko.computed(function() {
@@ -91,6 +90,7 @@ var ViewModel = function() {
 	}
 	
 	self.fourSquarePhotos = ko.observableArray([]);
+	self.fourSquareError = ko.observable();
 	
 	self.currentPlace = ko.observable(self.placeList()[0]);
 	
@@ -101,8 +101,20 @@ var ViewModel = function() {
 	self.getFoursquareHeader = ko.computed(function() {
 		self.title = ko.observable(self.currentPlace().name());
 		self.ll = ko.observable(self.currentPlace().position.lat + "," + self.currentPlace().position.lng);
-		loadFoursquarePhotos(self.title(), self.ll(), self.fourSquarePhotos);
+		loadFoursquarePhotos(self.title(), self.ll(), self.fourSquarePhotos, self.fourSquareError);
 	}, self);
+	
+	self.toggleMapWidth = function() {
+		$('#sidebar').toggleClass('active');
+		
+		var value = $("#sidebar").css("margin-left");
+		if ( value == "-250px" ) {
+			$("#map").css("min-width", "calc(-250px + 100%)");
+		}
+		if ( value == "0px" ) {	
+			$("#map").css("min-width", "100%");
+		}
+	}
 }
 
 

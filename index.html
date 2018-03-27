@@ -26,7 +26,7 @@
 			</form>
 			
 			<div class="navbar-header navbar-right">			
-				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" data-bind="click: toggleMapWidth">
 					<i class="glyphicon glyphicon-align-left"></i>
 					<span>Toggle Sidebar</span>
 				</button>
@@ -50,12 +50,18 @@
 					
 				</ul>
 			</nav>
-			<div id="map"></div>
+			<div id="map">
+				<p>Ooops!</p>
+				<p>Looks like the satellite is down!</p>
+				<p>Refresh or try later!</p>
+			</div>
 		</div>
 		
 		<div class="row" data-bind="with:currentPlace">
-			<h2 data-bind="text: name" ></h2>
+			<p id="photo-title"><img class="logo" width ="40" height="40" src="https://ss1.4sqi.net/img/metaIcons/touch-icon-72-cf2d6cd44afc49e9889ad54e33e69f31.png">OURSQUARE PHOTOS: <span data-bind="text: name"></span></p>
+			<p data-bind="text: $parent.fourSquareError"></p>
 		</div>
+		
 		<div class="row" data-bind="foreach: fourSquarePhotos" >
 			<div class="col-md-4">
 			<div class="thumbnail">
@@ -82,14 +88,5 @@
 	<script async defer
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuyUkgH8UMjokfvT3H5lizeUzmcv8H2Kc&libraries=places&v=3&callback=run">
 	</script>
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$('#sidebarCollapse').on('click', function () {
-				$('#sidebar').toggleClass('active');
-			});
-		});
-		
-		
-    </script>
 </body>
 </html>

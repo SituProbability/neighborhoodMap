@@ -11,7 +11,7 @@ var bouncer;
 // Create a new blank array for all the listing markers.
 var markers = [];
 
-//constructor creates a new map
+// Constructor creates a new map
 function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 34.087115, lng: -118.015921},
@@ -19,6 +19,7 @@ function initMap() {
 	});
 }
 
+// Load markers
 function loadMarkers(locations) {
 	
 	var bounds = new google.maps.LatLngBounds();
@@ -26,6 +27,7 @@ function loadMarkers(locations) {
 	bouncer = new google.maps.Marker({
 		title: ""
 	});
+	
 	largeInfowindow = new google.maps.InfoWindow();
 	
 	// Style the markers a bit. This will be our listing marker icon.
@@ -52,11 +54,11 @@ function loadMarkers(locations) {
 		markers.push(marker);
 		
 		bounds.extend(marker.position);
-		
 		map.fitBounds(bounds);
 				
 		// Create an onclick event to open an infowindow at each marker.
 		marker.addListener('click', function() {
+			// check if the item is clicked again!
 			if(this !== bouncer) {
 				// Stop the bouncing marker, if there is one 
 				if ( bouncer && bouncer.getAnimation() !== null ) {
@@ -70,8 +72,6 @@ function loadMarkers(locations) {
 				// Load Foursquare photos for this markers location 
 				for (var i = 0; i < viewModel.placeList().length; i++) {
 					if (bouncer.title == viewModel.placeList()[i].name()) {
-						console.log(bouncer.title);
-						console.log(viewModel.placeList()[i].name());
 						viewModel.currentPlace(viewModel.placeList()[i]);
 						break;
 					}
@@ -128,6 +128,7 @@ function populateInfoWindow(marker, infowindow) {
 		// Clear the infowindow content to give the streetview time to load.
 		infowindow.setContent('');
 		infowindow.marker = marker;
+		
 		// Make sure the marker property is cleared if the infowindow is closed.
 		infowindow.addListener('closeclick', function() {
 			marker.setAnimation(null);
@@ -144,6 +145,7 @@ function populateInfoWindow(marker, infowindow) {
 		// Use streetview service to get the closest streetview image within
 		// 50 meters of the markers position
 		streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+		
 		// Open the infowindow on the correct marker.
 		infowindow.open(map, marker);
 		
