@@ -54,6 +54,7 @@ var ViewModel = function() {
 	}, self);
 		
 	self.populateInfowindow = function(clickedPlace) {
+		self.show(false);
 		// check if the item is clicked again!
 		if(clickedPlace.name() != bouncer.title){
 			// Stop the bouncing marker, if there is one 
@@ -92,11 +93,13 @@ var ViewModel = function() {
 	self.fourSquarePhotos = ko.observableArray([]);
 	self.fourSquareError = ko.observable();
 	
-	self.currentPlace = ko.observable(self.placeList()[0]);
+	self.currentPlace = ko.observable({name:ko.observable(""), position:""});
 	
 	this.setPlace = function(clickedPlace){
 		self.currentPlace(clickedPlace);		
 	};
+	
+	self.show =  ko.observable(true);
 	
 	self.getFoursquareHeader = ko.computed(function() {
 		self.title = ko.observable(self.currentPlace().name());

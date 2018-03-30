@@ -63,6 +63,7 @@ function loadMarkers(locations) {
 				
 		// Create an onclick event to open an infowindow at each marker.
 		marker.addListener('click', function() {
+			viewModel.show(false);
 			// check if the item is clicked again!
 			if(this !== bouncer) {
 				// Stop the bouncing marker, if there is one 
