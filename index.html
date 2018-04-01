@@ -16,23 +16,20 @@
 		<div class="container-fluid">
 			<form class="navbar-form navbar-left" action="#">
 				<div class="input-group">
-					<input type="text" class="form-control" data-bind="value: search, valueUpdate: 'afterkeydown'">
+					<input id="places-search" type="text" class="form-control" data-bind="value: search, valueUpdate:['afterkeydown','propertychange','input']">
 					<div class="input-group-btn">
-						<button class="btn btn-default" type="submit">
+						<button class="btn btn-default" type="submit" data-bind="click: placeToSearch">
 							<i class="glyphicon glyphicon-search"></i>
 						</button>
 					</div>
 				</div>
 			</form>
-			
 			<div class="navbar-header navbar-right">			
 				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" data-bind="click: setDisplaySidebar">
 					<i class="glyphicon glyphicon-align-left"></i>
 					<span>Toggle Sidebar</span>
 				</button>
 			</div>
-			
-			
 		</div>
 	</nav>
 			

@@ -133,6 +133,13 @@ var ViewModel = function() {
 	self.setWidth = ko.pureComputed(function(){
 		return self.displaySidebar() ? "set-width" : "set-full-width"
 	}, self);
+	
+	self.placeToSearch = function() {
+		if (placeMarkers != []) {
+			placeMarkers = [];
+		}
+		textSearchPlaces(search());
+	}
 }
 
 
