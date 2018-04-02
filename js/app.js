@@ -140,6 +140,18 @@ var ViewModel = function() {
 		}
 		textSearchPlaces(search());
 	}
+	
+	self.drawing = function() {
+		toggleDrawing(drawingManager)
+	}
+	
+	self.hideMarkers = function() {
+		hideMarkers(markers);
+	}
+	
+	self.showMarkers = function() {
+		showMarkers(markers);
+	}	
 }
 
 

@@ -24,7 +24,12 @@
 					</div>
 				</div>
 			</form>
-			<div class="navbar-header navbar-right">			
+			
+			<button class="btn btn-danger navbar-btn" data-bind="click: showMarkers">Show Markers</button>
+			<button class="btn btn-danger navbar-btn" data-bind="click: hideMarkers">Hide Markers</button>
+			
+			<div class="navbar-header navbar-right">
+				<button id="toggle-drawing" class="btn btn-danger navbar-btn" data-bind="click: drawing">Drawing Tools</button>
 				<button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn" data-bind="click: setDisplaySidebar">
 					<i class="glyphicon glyphicon-align-left"></i>
 					<span>Toggle Sidebar</span>
@@ -85,7 +90,7 @@
 	<script src="js/utils/foursquare.js"></script>
     <script src="js/app.js"></script>
 	<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuyUkgH8UMjokfvT3H5lizeUzmcv8H2Kc&libraries=places&v=3&callback=run" onerror="googleMapsError()">
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuyUkgH8UMjokfvT3H5lizeUzmcv8H2Kc&libraries=drawing,places&v=3&callback=run" onerror="googleMapsError()">
 	</script>
 </body>
 </html>

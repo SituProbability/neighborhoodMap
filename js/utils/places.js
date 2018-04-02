@@ -3,6 +3,10 @@ var map;
 
 var largeInfowindow;
 
+var drawingManager;
+// This global polygon variable is to ensure only ONE polygon is rendered.
+var polygon = null;
+
 var defaultIcon;
 var highlightedIcon;
 
@@ -92,6 +96,41 @@ function initMap() {
 		center: {lat: 34.087115, lng: -118.015921},
 		zoom: 15,
 		styles: styles
+	});
+	
+	// Initialize the drawing manager.
+	drawingManager = new google.maps.drawing.DrawingManager({
+		drawingMode: google.maps.drawing.OverlayType.POLYGON,
+		drawingControl: true,
+		drawingControlOptions: {
+			position: google.maps.ControlPosition.TOP_LEFT,
+			drawingModes: [
+				google.maps.drawing.OverlayType.POLYGON
+			]
+		}
+	});
+	
+	drawingManager.addListener('overlaycomplete', function(event) {
+		// First, check if there is an existing polygon.
+		// If there is, get rid of it and remove the markers
+		if (polygon) {
+			polygon.setMap(null);
+			hideMarkers(markers);
+		}
+		
+		// Switching the drawing mode to the HAND (i.e., no longer drawing).
+		drawingManager.setDrawingMode(null);
+		
+		// Creating a new editable polygon from the overlay.
+		polygon = event.overlay;
+		polygon.setEditable(true);
+		
+		// Searching within the polygon.
+		searchWithinPolygon();
+		
+		// Make sure the search is re-done if the poly is changed.
+		polygon.getPath().addListener('set_at', searchWithinPolygon);
+		polygon.getPath().addListener('insert_at', searchWithinPolygon);
 	});
 }
 
@@ -363,4 +402,48 @@ function getPlacesDetails(marker, infowindow) {
 			});
 		}
 	});
+}
+
+//This shows and hides (respectively) the drawing options.
+function toggleDrawing(drawingManager){
+	if (drawingManager.map){
+		drawingManager.setMap(null);
+		// In case the user drew anything, get rid of the polygon
+		if (polygon !== null) {
+			polygon.setMap(null);
+		}
+	} else {
+		drawingManager.setMap(map);
+	}
+}
+
+// This function will loop through the markers array and display them all.
+function showMarkers() {
+	var bounds = new google.maps.LatLngBounds();
+	// Extend the boundaries of the map for each marker and display the marker
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(map);
+		bounds.extend(markers[i].position);
+	}
+	map.fitBounds(bounds);
+}
+
+// This function will loop through the markers and hide them all.
+function hideMarkers(markers) {
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+}
+
+// This function hides all markers outside the polygon,
+// and shows only the ones within it. This is so that the
+// user can specify an exact area of search.
+function searchWithinPolygon() {
+	for (var i = 0; i < markers.length; i++) {
+		if (google.maps.geometry.poly.containsLocation(markers[i].position, polygon)) {
+			markers[i].setMap(map);
+		} else {
+			markers[i].setMap(null);
+		}
+	}
 }
